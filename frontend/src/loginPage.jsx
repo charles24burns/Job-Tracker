@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -53,7 +54,7 @@ export default function LoginPage() {
                 style={{ display: "block", marginBottom: "1rem" }}
             />
 
-            <button onClick={handleLogin}>Login</button>
+            <button onClick={handleSubmit}>Login</button>
 
             {error && <p style={{ color: "red" }}>{error}</p>}
         </div>

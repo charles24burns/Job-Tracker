@@ -6,6 +6,7 @@ import userRoutes from './routes/users.js';
 import authRoutes from './routes/auth.js';
 import morgan from 'morgan';
 
+
 dotenv.config();
 
 console.log(" 🚀 DATABASE_URL:", process.env.DATABASE_URL);
