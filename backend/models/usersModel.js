@@ -3,9 +3,9 @@ import bcrypt from 'bcrypt';
 
 console.log("✅ usersModel.js loading db from:");
 
-export const findUser = async (email) => {
+export const findUser = async (identifier) => {
     try {
-        const result = await db.query('SELECT * FROM users WHERE email = $1', [email]);
+        const result = await db.query('SELECT * FROM users WHERE email = $1 OR username = $2', [identifier, identifier]);
         return result;
     } catch (error) {
         console.error('Error fetching user:', error);

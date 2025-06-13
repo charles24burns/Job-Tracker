@@ -8,19 +8,19 @@ dotenv.config();
 const JWT_secret = process.env.JWT_SECRET || 'supersecretkey';
 
 export const loginUser = async (req, res) => {
-    const {email , password} = req.body;
+    const {identifier , password} = req.body;
     
-    if (!email || !password) {
-        return res.status(400).json({ error: "Email and Password are required" });
+    if (!identifier || !password) {
+        return res.status(400).json({ error: "Email/Username and Password are required" });
     }
 
     try {
         // check if the user exists
-        const result = await findUser(email);
+        const result = await findUser(identifier);
         const user = result.rows[0];
 
         if(!user) {
-            return res.status(401).json({ error: "Invalid email"});
+            return res.status(401).json({ error: "Invalid email or username"});
         }
 
         // compare passwords

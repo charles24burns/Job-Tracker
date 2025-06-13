@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
-    const [email, setEmail] = useState('');
+    const [identifier, setIdentifier] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function LoginPage() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ identifier, password }),
             });
 
             const data = await response.json();
@@ -40,10 +40,10 @@ export default function LoginPage() {
             <h2>Login</h2>
 
             <input 
-                type="email"
-                placeholder="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                type="text"
+                placeholder="Email or Username"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
                 style={{ display: "block", marginBottom: "1rem" }}
             />
             <input 
