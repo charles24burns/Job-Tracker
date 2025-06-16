@@ -22,12 +22,15 @@ const jobSchema = Joi.object({
     "GoAbroad",
     "WayUp",
     "DCInternships",
-    "Google Jobs"
+    "Google Jobs",
+    "Referral",
+    "Networking",
+    "Job Fair",
+    "Other"
 
 ).required(),
   job_title: Joi.string().min(2).required(),
   company_name: Joi.string().min(2).required(),
-  application_date: Joi.date().format(['YYYY/MM/DD', 'DD-MM-YYYY']).required(),
   location: Joi.string()
     .trim()
     .pattern(/^[\p{L}\s]+,\s*[\p{L}\s]+,\s[\p{L}\s]+$/u)
@@ -35,12 +38,13 @@ const jobSchema = Joi.object({
     .messages({
       'string.pattern.base': 'Location must be in the format "City, State, Country".'
     }),
+  application_date: Joi.date().format(['YYYY-MM-DD', 'MM/DD/YYYY']).required(),
   status: Joi.string().valid(
-    "Applied",
-    "Interview",
-    "Offer",
-    "Accepted",
-    "Rejected"
+    "applied",
+    "interview",
+    "offer",
+    "accepted",
+    "rejected"
   ).required()
 });
 
@@ -92,6 +96,7 @@ export const getJob = async (req, res) => {
 export const createJobByID = async (req, res) => {
   console.log('📥 Received POST /api/v1/jobs');
   const { error, value } = jobSchema.validate(req.body);
+  console.log('Validated job data:', value);
 
   if (error) {
     return res.status(400).json({ error: error.details[0].message });

@@ -26,8 +26,12 @@ export default function LoginPage() {
                 return;
             }
 
+            console.log("Login successful:", data);
             // Store the token in local storage
             localStorage.setItem('token', data.token);
+            localStorage.setItem('userId', data.user.id);
+
+            // Redirect to the jobs page
             navigate("/jobs");
         } catch (error) {
             console.error("Error during login:", error);
