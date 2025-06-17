@@ -1,4 +1,6 @@
 import React from "react";
+import "./loginPage.css";
+import "/fonts/ubuntu.css";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -40,27 +42,29 @@ export default function LoginPage() {
     };
 
     return (
-        <div style={{ padding: "2rem" }}>
-            <h2>Login</h2>
+        <div className="login-wrapper">
+            <div className="login-container">
+                <h2 className="login-title ubuntu-medium">Login</h2>
 
-            <input 
-                type="text"
-                placeholder="Email or Username"
-                value={identifier}
-                onChange={(e) => setIdentifier(e.target.value)}
-                style={{ display: "block", marginBottom: "1rem" }}
-            />
-            <input 
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                style={{ display: "block", marginBottom: "1rem" }}
-            />
+                <input 
+                    type="text"
+                    placeholder="Email or Username"
+                    value={identifier}
+                    onChange={(e) => setIdentifier(e.target.value)}
+                    className="login-input ubuntu-regular-italic"
+                />
+                <input 
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="login-input ubuntu-regular-italic"
+                />
 
-            <button onClick={handleSubmit}>Login</button>
+                <button className="login-button ubuntu-regular" onClick={handleSubmit}>Login</button>
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
+                {error && <p className="login-error ubuntu-regular-italic">{error}</p>}
+            </div>
         </div>
     );
 }
