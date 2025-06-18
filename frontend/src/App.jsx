@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LoginPage from './loginPage.jsx';
 import JobsPage from './jobsPage.jsx';
-import '/fonts/ubuntu.css';
+import '/css/ubuntu.css';
 
 function App() {
   return (

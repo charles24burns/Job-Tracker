@@ -1,6 +1,6 @@
 import React from "react";
-import "./loginPage.css";
-import "/fonts/ubuntu.css";
+import "/css/loginPage.css";
+import "/css/ubuntu.css";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
