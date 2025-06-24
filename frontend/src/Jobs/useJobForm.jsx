@@ -79,7 +79,7 @@ export function useJobForm(setJobs, setError, setShowModal) {
             }
             setJobs(prev => [...prev, result]);
             console.log("Jobs:", jobs);
-            setShowModal(null);
+            setShowModal(prevState => ({...prevState, status: null}));
             resetForm();
         } catch (error) {
             console.error("Error adding job:", error);

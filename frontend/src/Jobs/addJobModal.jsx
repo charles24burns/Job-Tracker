@@ -125,7 +125,7 @@ export default function AddJobModal({
                     <button type="submit" className="submit-button">Submit</button>
                     
                     {/* Cancel Button */}
-                    <button type="button" onClick={() => setShowModal(null)} className="cancel-button">Cancel</button>
+                    <button type="button" onClick={() => setShowModal(prevState => ({...prevState, status: null}))} className="cancel-button">Cancel</button>
                     
                 </form>
             </div>

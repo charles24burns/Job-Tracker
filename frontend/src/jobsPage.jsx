@@ -4,6 +4,8 @@ import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import AddJobModal from './Jobs/addJobModal.jsx';
 import {useJobForm} from './Jobs/useJobForm.jsx';
+import {useDeleteJob} from './Jobs/useDeleteJob.jsx';
+import AddDeleteModal from "./Jobs/addDeleteModal.jsx";
 import '/css/jobsPage.css';
 import '/css/ubuntu.css';
 
@@ -17,7 +19,10 @@ export default function JobsPage() {
         return () => clearTimeout(timer);
     }, [error]);
 
-    const [showModal, setShowModal] = useState(null);
+    const [showModal, setShowModal] = useState({
+        status: null,
+        jobId: null
+    });
     const { formData, setFormData, formErrors, handleSubmit, resetForm } = useJobForm(setJobs, setError, setShowModal);
     const navigate = useNavigate();
 
@@ -70,19 +75,13 @@ export default function JobsPage() {
                 onClick={() => {
                     console.log("Adding job");
                     console.log("Show modal:", showModal);
-                    setShowModal("add");
+                    setShowModal(prevState => ({...prevState, status: "add"}));
                 }}
                 className = "addJob-button"
             >
                 + Add Job
             </button>
 
-            <button 
-                onClick={() => setShowModal(true)}
-                className = "addJob-button"
-            >
-                <span className="ubuntu-regular">Delete Job</span>
-            </button>
 
             {error && <p style={{color: "red"}}>{error}</p>}
 
@@ -95,12 +94,15 @@ export default function JobsPage() {
                     <li key={job.id}>
                         <h3>{job.job_title}</h3>
                         <p>{job.company_name} - {job.status}</p>
+                        <button onClick={() => setShowModal(prevState => ({...prevState, status: "delete", jobId: job.id}))}>
+                            Delete
+                        </button>
                     </li>
                 ))}
             </ul>
             )}
             <AddJobModal
-                showModal={showModal === "add"}
+                showModal={showModal.status === "add"? showModal : false}
                 setShowModal={setShowModal}
                 formData={formData}
                 setFormData={setFormData}
@@ -108,6 +110,14 @@ export default function JobsPage() {
                 onSubmit={handleSubmit}
                 error={error}
             />
+            <AddDeleteModal
+                showModal={showModal.status === "delete"? showModal : false}
+                setShowModal={setShowModal}
+                onDelete={() => useDeleteJob(setJobs, showModal.jobId, setShowModal, setError)}
+            />
+            
+
+            
             
         </div>
     );
