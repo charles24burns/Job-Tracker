@@ -1,12 +1,14 @@
 import {state} from 'react';
 import {useNavigate} from 'react-router-dom';
 
-export function useDeleteJob(setJobs, job, setShowModal, setError) {
+export function useDeleteJob(setJobs, setShowModal, setError) {
     const navigate = useNavigate();
 
-    const jobId = job.id;
+    // const jobId = job.id;
 
-    const deleteJob = async (jobId) => {
+    const deleteJob = async (e, jobId) => {
+        e.preventDefault();
+
         const token = localStorage.getItem('token');
         const userId = localStorage.getItem('userId');
         if (!userId) {
@@ -19,7 +21,7 @@ export function useDeleteJob(setJobs, job, setShowModal, setError) {
         }
 
         try {
-            const response = await fetch(`http://localhost:5001/api/v1/jobs/${jobId}`, {
+            const response = await fetch(`http://localhost:5001/api/v1/jobs/${userId}/${jobId}`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",

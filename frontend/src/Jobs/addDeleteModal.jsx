@@ -1,9 +1,12 @@
 import React from 'react';
+import '/css/jobsPage.css';
+import '/css/ubuntu.css';
 
 export default function AddDeleteModal({
     showModal,
     setShowModal,
-    onDelete
+    onDelete,
+    jobId
 }) {
     if (!showModal) return null;
 
@@ -12,9 +15,10 @@ export default function AddDeleteModal({
             <div className="modal-content">
                 <h3 className="ubuntu-medium">Delete Job</h3>
                 <p>Are you sure you want to delete this job?</p>
+                <form onSubmit={(e) => onDelete(e, jobId)}>
                 <button
-                    onClick={onDelete}
-                    className="delete-button ubuntu-regular"
+                    type = "submit"
+                    className="submit-button ubuntu-regular"
                 >
                     Delete
                 </button>
@@ -24,6 +28,7 @@ export default function AddDeleteModal({
                 >
                     Cancel
                 </button>
+                </form>
             </div>
         </div>
     );

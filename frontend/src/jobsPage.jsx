@@ -25,6 +25,7 @@ export default function JobsPage() {
     });
     const { formData, setFormData, formErrors, handleSubmit, resetForm } = useJobForm(setJobs, setError, setShowModal);
     const navigate = useNavigate();
+    const deleteJob = useDeleteJob(setJobs, setShowModal, setError);
 
     useEffect(() => {
         const fetchJobs = async () => {
@@ -95,7 +96,7 @@ export default function JobsPage() {
                         <h3>{job.job_title}</h3>
                         <p>{job.company_name} - {job.status}</p>
                         <button onClick={() => setShowModal(prevState => ({...prevState, status: "delete", jobId: job.id}))}>
-                            Delete
+                            More
                         </button>
                     </li>
                 ))}
@@ -113,11 +114,10 @@ export default function JobsPage() {
             <AddDeleteModal
                 showModal={showModal.status === "delete"? showModal : false}
                 setShowModal={setShowModal}
-                onDelete={() => useDeleteJob(setJobs, showModal.jobId, setShowModal, setError)}
+                onDelete={deleteJob}
+                jobId={showModal.jobId}
+                error={error}
             />
-            
-
-            
             
         </div>
     );
